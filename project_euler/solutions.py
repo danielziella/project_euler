@@ -85,3 +85,7 @@ def problem5():
 
 def problem6():
     return helpers.sum_integers(100)**2 - helpers.sum_squares(100)
+
+
+def problem7():
+    return helpers.take_nth(helpers.prime_generator(), 10001)
