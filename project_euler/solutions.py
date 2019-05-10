@@ -2,9 +2,12 @@
 # -*- encoding: utf-8 -*-
 
 
+import functools
 import heapq
 from . import helpers
 import math
+import operator
+import pkg_resources
 
 
 def problem1():
@@ -110,3 +113,20 @@ def problem7():
     What is the 10 001st prime number?"""
 
     return helpers.take_nth(helpers.prime_generator(), 10001)
+
+
+def problem8():
+    """The four adjacent digits in the 1000-digit number that have the greatest
+    product are 9 × 9 × 8 × 9 = 5832.
+
+    < resources/problem8.txt >
+
+    Find the thirteen adjacent digits in the 1000-digit number that have the
+    greatest product. What is the value of this product?"""
+
+    astring = pkg_resources.resource_string('project_euler.resources',
+                                            'problem8.txt') \
+        .decode('utf-8').replace('\n', '')
+
+    return max([functools.reduce(operator.mul, map(int, astring[k:k+13]))
+                for k in range(len(astring))])
