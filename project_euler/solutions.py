@@ -3,6 +3,8 @@
 
 
 import heapq
+from . import helpers
+import math
 
 
 def problem1():
@@ -68,3 +70,18 @@ def problem4():
         product, left, right = heapq.heappop(h)
 
     return -product
+
+
+def problem5():
+    def lcm_generator():
+        lcm = 1
+        n = 0
+        while True:
+            n = n+1
+            lcm = lcm*n//math.gcd(lcm, n)
+            yield lcm
+    return helpers.take_nth(lcm_generator(), 20)
+
+
+def problem6():
+    return helpers.sum_integers(100)**2 - helpers.sum_squares(100)
