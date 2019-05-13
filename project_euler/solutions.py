@@ -223,3 +223,15 @@ def problem12():
         divisors = functools.reduce(operator.mul,
                                     map(lambda x: x+1, factorization.values()))
     return n*(n+1)//2
+
+
+def problem13():
+    """
+    Work out the first ten digits of the sum of the following one-hundred
+    50-digit numbers.
+
+    < resources/problem13.txt >
+    """
+    astring = pkg_resources.resource_string('project_euler.resources',
+                                            'problem13.txt').decode('utf-8')
+    return str(sum(map(int, astring.strip().split('\n'))))[:10]
