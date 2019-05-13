@@ -41,6 +41,6 @@ def cheap_prime_candidate_generator():
 def prime_generator():
     primes = []
     for candidate in cheap_prime_candidate_generator():
-        if all(candidate % x != 0 for x in primes):
+        if all(candidate % x != 0 for x in primes if x <= candidate//x):
             primes.append(candidate)
             yield candidate

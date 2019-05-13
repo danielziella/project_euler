@@ -5,6 +5,7 @@
 import functools
 import heapq
 from . import helpers
+import itertools
 import math
 import operator
 import pkg_resources
@@ -146,3 +147,7 @@ def problem9():
         for b in range(1, a+1):
             if a**2 + b**2 == (1000 - a - b)**2:
                 return a*b*(1000 - a - b)
+
+
+def problem10():
+    return sum(itertools.takewhile(lambda x: x < 2000000, helpers.prime_generator()))
