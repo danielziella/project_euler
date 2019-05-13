@@ -44,3 +44,15 @@ def prime_generator():
         if all(candidate % x != 0 for x in primes if x <= candidate//x):
             primes.append(candidate)
             yield candidate
+
+
+def factorize(n):
+    factorization = {}
+    for p in itertools.takewhile(lambda x: x <= n // x,
+                                 cheap_prime_candidate_generator()):
+        while n % p == 0:
+            factorization[p] = factorization.get(p, 0)+1
+            n = n // p
+    if n != 1:
+        factorization[n] = factorization.get(n, 0)+1
+    return factorization
