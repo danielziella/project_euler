@@ -150,4 +150,44 @@ def problem9():
 
 
 def problem10():
-    return sum(itertools.takewhile(lambda x: x < 2000000, helpers.prime_generator()))
+    """
+    The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+
+    Find the sum of all the primes below two million.
+    """
+    return sum(itertools.takewhile(lambda x: x < 2000000,
+                                   helpers.prime_generator()))
+
+
+def problem11():
+    """
+
+    In the 20×20 grid below, four numbers along a diagonal line have been
+    marked in red.
+
+    < resources/problem11.txt >
+
+    The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
+
+    What is the greatest product of four adjacent numbers in the same direction
+    (up, down, left, right, or diagonally) in the 20×20 grid?
+    """
+    astring = pkg_resources.resource_string('project_euler.resources',
+                                            'problem11.txt').decode('utf-8')
+    grid = list(map(lambda x: list(map(int, x.split(' '))),
+                    astring.strip().split('\n')))
+
+    n = len(grid)  # 20x20 grid
+
+    bestrow = max(functools.reduce(operator.mul, grid[i][j:j+4])
+                  for i in range(n) for j in range(n-4))
+    bestcol = max(functools.reduce(operator.mul,
+                                   (grid[i+k][j] for k in range(4)))
+                  for i in range(n-4) for j in range(n-4))
+    bestdiag1 = max(functools.reduce(operator.mul,
+                                     (grid[i+k][j+k] for k in range(4)))
+                    for i in range(n-4) for j in range(n-4))
+    bestdiag2 = max(functools.reduce(operator.mul,
+                                     (grid[i+k][j+3-k] for k in range(4)))
+                    for i in range(n-4) for j in range(n-4))
+    return max(bestrow, bestcol, bestdiag1, bestdiag2)
