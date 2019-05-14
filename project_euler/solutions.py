@@ -288,3 +288,37 @@ def problem16():
     """
     return sum(map(int, str(2**1000)))
 
+
+def problem17():
+    """If the numbers 1 to 5 are written out in words: one, two, three, four,
+    five, then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
+
+    If all the numbers from 1 to 1000 (one thousand) inclusive were written
+    out in words, how many letters would be used?
+
+    NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and
+    forty-two) contains 23 letters and 115 (one hundred and fifteen) contains
+    20 letters. The use of "and" when writing out numbers is in compliance
+    with British usage."""
+    astring = pkg_resources.resource_string('project_euler.resources',
+                                            'problem17.txt').decode('utf-8')
+
+    adict = {int(k): v for k, v in map(lambda x: x.split(':'),
+                                       astring.strip().split('\n'))}
+
+    def num_to_str(n):
+        assert n < 1000000, 'n must be less than one million'
+
+        if n >= 1000:
+            return num_to_str(n//1000) + 'thousand' + \
+               num_to_str(n % 1000)
+        elif n >= 100:
+            return num_to_str(n//100) + 'hundred' + \
+               ('and' + num_to_str(n % 100) if n % 100 > 0 else '')
+        elif n >= 20:
+            return adict[n//10*10] + \
+               num_to_str(n % 10)
+        else:
+            return adict[n]
+
+    return sum(len(num_to_str(n)) for n in range(1001))
