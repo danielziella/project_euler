@@ -271,3 +271,20 @@ def problem14():
             collatz_len[seq[-1]] = collatz_len[seq_next] + 1
             seq_next = seq.pop()
     return collatz_len
+
+
+def problem15():
+    """
+    Starting in the top left corner of a 2×2 grid, and only being able to move
+    to the right and down, there are exactly 6 routes to the bottom right
+    corner.
+    How many such routes are there through a 20×20 grid?"""
+    return helpers.combinatorial(40,20)
+
+
+def problem16():
+    """2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
+    What is the sum of the digits of the number 2^1000?
+    """
+    return sum(map(int, str(2**1000)))
+

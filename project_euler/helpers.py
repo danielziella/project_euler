@@ -56,3 +56,7 @@ def factorize(n):
     if n != 1:
         factorization[n] = factorization.get(n, 0)+1
     return factorization
+
+
+def combinatorial(n,k):
+    return combinatorial(n-1,k-1)*n//k if k>0 else 1
