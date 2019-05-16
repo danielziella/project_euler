@@ -322,3 +322,65 @@ def problem17():
             return adict[n]
 
     return sum(len(num_to_str(n)) for n in range(1001))
+
+
+def _best_sum_over_pyramid(resource_filename):
+    astring = pkg_resources.resource_string('project_euler.resources',
+                                            resource_filename).decode('utf-8')
+
+    pyramid = list(map(lambda x: list(map(int, x.split(' '))),
+                       astring.strip().split('\n')))
+
+    best_sum = pyramid[0]
+
+    for k, row in enumerate(pyramid[1:]):
+        best_sum = [max(a+c, b+c) for a, b, c in
+                    zip([0]+best_sum, best_sum+[0], row)]
+
+    return max(best_sum)
+
+
+
+
+def problem18():
+    """By starting at the top of the triangle below and moving to adjacent
+    numbers on the row below, the maximum total from top to bottom is 23.
+       3
+      7 4
+     2 4 6
+    8 5 9 3
+
+    That is, 3 + 7 + 4 + 9 = 23.
+
+    Find the maximum total from top to bottom of the triangle below:
+
+    < resources/problem18.txt >
+
+    NOTE: As there are only 16384 routes, it is possible to solve this problem
+    by trying every route. However, Problem 67, is the same challenge with a
+    triangle containing one-hundred rows; it cannot be solved by brute force,
+    and requires a clever method! ;o)"""
+    return _best_sum_over_pyramid('problem18.txt')
+
+
+def problem67():
+    """By starting at the top of the triangle below and moving to adjacent
+    numbers on the row below, the maximum total from top to bottom is 23.
+       3
+      7 4
+     2 4 6
+    8 5 9 3
+
+    That is, 3 + 7 + 4 + 9 = 23.
+
+    Find the maximum total from top to bottom in triangle.txt (right click and
+    'Save Link/Target As...'), a 15K text file containing a triangle with
+    one-hundred rows.
+
+    NOTE: This is a much more difficult version of Problem 18. It is not
+    possible to try every route to solve this problem, as there are 2^99
+    altogether! If you could check one trillion (10^12) routes every second
+    it would take over twenty billion years to check them all. There is an
+    efficient algorithm to solve it. ;o)
+    """
+    return _best_sum_over_pyramid('problem67.txt')
