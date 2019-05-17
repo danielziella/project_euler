@@ -384,3 +384,28 @@ def problem67():
     efficient algorithm to solve it. ;o)
     """
     return _best_sum_over_pyramid('problem67.txt')
+
+
+def problem290():
+    """How many integers 0 ≤ n < 1018 have the property that the sum of the
+    digits of n equals the sum of digits of 137n? """
+
+    running_numbers = [((0, 0), 1)]
+
+    def step(running_numbers):
+        alist = []
+        for k in range(10):
+            for (carry, diff_sum), count in running_numbers:
+                mul = 137*k
+                diff_sum, carry = diff_sum+k-(mul+carry) % 10, (mul+carry)//10
+                alist.append(((carry, diff_sum), count))
+        alist = sorted(alist, key=operator.itemgetter(0))
+        alist = [(k, sum(y for x, y in v))
+                 for k, v
+                 in itertools.groupby(alist, key=operator.itemgetter(0))]
+        return alist
+
+    for k in range(18):
+        running_numbers = step(running_numbers)
+
+    return sum([count for (carry, diff_sum),count in running_numbers if sum(map(int,str(carry)))==diff_sum])
