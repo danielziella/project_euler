@@ -5,6 +5,14 @@
 import functools
 import operator
 import itertools
+from . import resources as problem_resources
+from importlib import resources
+
+
+def get_problem_resources(problem):
+    with resources.as_file(resources.files(problem_resources).joinpath(problem)) as path:
+        with path.open(mode='rt') as resource:
+            return resource.read()
 
 
 def sum_integers(n):

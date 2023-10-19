@@ -8,7 +8,6 @@ from . import helpers
 import itertools
 import math
 import operator
-import pkg_resources
 
 
 def problem1():
@@ -125,9 +124,7 @@ def problem8():
     Find the thirteen adjacent digits in the 1000-digit number that have the
     greatest product. What is the value of this product?"""
 
-    astring = pkg_resources.resource_string('project_euler.resources',
-                                            'problem8.txt') \
-        .decode('utf-8').replace('\n', '')
+    astring = helpers.get_problem_resources('problem8.txt').replace('\n', '')
 
     return max([functools.reduce(operator.mul, map(int, astring[k:k+13]))
                 for k in range(len(astring))])
@@ -172,8 +169,8 @@ def problem11():
     What is the greatest product of four adjacent numbers in the same direction
     (up, down, left, right, or diagonally) in the 20×20 grid?
     """
-    astring = pkg_resources.resource_string('project_euler.resources',
-                                            'problem11.txt').decode('utf-8')
+    astring = helpers.get_problem_resources('problem11.txt')
+    
     grid = list(map(lambda x: list(map(int, x.split(' '))),
                     astring.strip().split('\n')))
 
@@ -232,8 +229,8 @@ def problem13():
 
     < resources/problem13.txt >
     """
-    astring = pkg_resources.resource_string('project_euler.resources',
-                                            'problem13.txt').decode('utf-8')
+    astring = helpers.get_problem_resources('problem13.txt')
+
     return str(sum(map(int, astring.strip().split('\n'))))[:10]
 
 
@@ -300,8 +297,7 @@ def problem17():
     forty-two) contains 23 letters and 115 (one hundred and fifteen) contains
     20 letters. The use of "and" when writing out numbers is in compliance
     with British usage."""
-    astring = pkg_resources.resource_string('project_euler.resources',
-                                            'problem17.txt').decode('utf-8')
+    astring = helpers.get_problem_resources('problem17.txt')
 
     adict = {int(k): v for k, v in map(lambda x: x.split(':'),
                                        astring.strip().split('\n'))}
@@ -325,8 +321,7 @@ def problem17():
 
 
 def _best_sum_over_pyramid(resource_filename):
-    astring = pkg_resources.resource_string('project_euler.resources',
-                                            resource_filename).decode('utf-8')
+    astring = helpers.get_problem_resources(resource_filename)
 
     pyramid = list(map(lambda x: list(map(int, x.split(' '))),
                        astring.strip().split('\n')))
